@@ -3,7 +3,7 @@ langcompare
 
 Compare Ruby to Python, Clojure and Java
 
-How are varargs done in the following languages?
+**How are varargs done?
 
 Ruby: Splat arguments
 
