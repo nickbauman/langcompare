@@ -53,3 +53,43 @@ class Example {
 
 new Example().greeting("Rachelle", "Joe", "John");
 ```
+
+## How are closures done?
+
+### Ruby
+
+Ruby has several different things that are closure-like. Each of them are not quite like a Lisp-1 closure.
+
+Blocks. These are like anonymous functions, except they're not quite first class. They can work for methods that are programmed to accept them, such as the each method which hangs off a collection.
+
+```ruby
+[1, 2, 3, 4, 5].each { |i| puts i }
+1
+2
+3
+4
+5
+```
+
+You cannot do something like this, however:
+
+```ruby
+# blocks are not first-class
+f = {|i| puts i}
+SyntaxError: (irb):4: syntax error, unexpected tPIPE
+```
+
+Procs. First class anonymous functions. The irony is that blocks are just syntactic sugar to make Procs look more
+"Rubyish". So behind every block you'll find a Proc that's not quite as flexible but uses a more concise syntax. So
+you could do this, for example:
+
+```ruby
+f = Proc.new do |i| puts i end
+# or, alternatively:
+f = Proc.new {|i| puts i}
+# notice the irregular call requirement here
+f.call("foo")
+"foo"
+```
+
+Lambdas. Like procs, these are first class anonymous functions. But they check their airity and can override the return call. This means that Procs (and by extension, blocks which are merely special cases of Procs) expect to take over the return behavior of whatever is using them and Lambdas do not. 
