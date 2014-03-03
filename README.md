@@ -4,7 +4,9 @@ Compare Ruby to Python, Clojure and Java
 
 ## How are varargs done?
 
-### Ruby: Splat arguments
+### Ruby
+
+Splat arguments
 
 ```ruby
 def greeting(*people)
@@ -14,7 +16,9 @@ end
 greeting "Rachelle", "Joe", "John"
 ```
 
-### Python: args (and kwargs)
+### Python
+
+Args (and kwargs)
 
 ```python
 def greeting(*people):
@@ -24,7 +28,9 @@ def greeting(*people):
 greeting("Rachelle", "Joe", "John")
 ```
 
-### Clojure: Ampersand args, which have the additional feature of being optional
+### Clojure 
+
+Ampersand args, which have the additional feature of being optional
 
 ```clojure
 (defn greeting [& people]
@@ -33,7 +39,9 @@ greeting("Rachelle", "Joe", "John")
 (greeting "Rachelle" "Joe" "John")
 ```
 
-### Java: Simply varargs, also optional using an ellipses, which creates a zero-length array when not used 
+### Java
+
+Varargs, also optional using an ellipses, which creates a zero-length array when not used 
 
 ```java
 class Example {
