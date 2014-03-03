@@ -92,4 +92,20 @@ f.call("foo")
 "foo"
 ```
 
-Lambdas. Like procs, these are first class anonymous functions. But they check their airity and can override the return call. This means that Procs (and by extension, blocks which are merely special cases of Procs) expect to take over the return behavior of whatever is using them and Lambdas do not. 
+Lambdas. Like procs, these are first class anonymous functions. But they check their airity and can override the return call. This means that Procs (and by extension, blocks which are merely special cases of Procs) expect to take over the return behavior of whatever is using them and Lambdas do not. _This is the closest to a Lisp-1 first class function._
+
+So to illustrate the difference here:
+
+```ruby
+def test_return(code)
+    code.call
+    return "done"
+end
+
+puts test_return(Proc.new { return "this is a Proc" })
+LocalJumpError: unexpected return
+
+puts test_return(lambda { return "this is a lambda"})
+done
+```
+
