@@ -34,7 +34,7 @@ Ampersand args, which have the additional feature of being optional
 
 ```clojure
 (defn greeting [& people]
-    (reduce (fn[_ person] (println (str "Hello " person))) nil people))
+    (doseq [name people] (println (str "Hello " name))))
 
 (greeting "Rachelle" "Joe" "John")
 ```
