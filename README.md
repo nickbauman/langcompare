@@ -1,8 +1,8 @@
-* langcompare
+= langcompare
 
 Compare Ruby to Python, Clojure and Java
 
-** How are varargs done?
+== How are varargs done?
 
 Ruby: Splat arguments
 
