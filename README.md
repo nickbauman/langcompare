@@ -56,11 +56,13 @@ new Example().greeting("Rachelle", "Joe", "John");
 
 ## How are closures done?
 
+Closures were born in Lisp. True closures are first class. They allow capturing outer scope within an inner scope. They can be anonymous, assigned to symbols, values or variables, passed to functions, and treated as dependencies.
+
 ### Ruby
 
 Ruby has several different things that are closure-like. Each of them are not quite like a real Lisp closure.
 
-*Blocks.* These are like anonymous functions, except they're not quite first class. They can work for methods that are programmed to accept them, such as the each method which hangs off a collection.
+*Blocks.* are like anonymous functions, except they're not quite first class. They can work for methods that are programmed to accept them, such as the each method which hangs off a collection.
 
 ```ruby
 [1, 2, 3, 4, 5].each { |i| puts i }
@@ -79,7 +81,7 @@ f = {|i| puts i}
 SyntaxError: (irb):4: syntax error, unexpected tPIPE
 ```
 
-*Procs.* First class anonymous functions. The irony is that blocks are just syntactic sugar to make Procs look more
+*Procs.* are first class anonymous functions. The irony is that blocks are just syntactic sugar to make Procs look more
 "Rubyish". So behind every block you'll find a Proc that's not quite as flexible but uses a more concise syntax. So
 you could do this, for example:
 
@@ -92,7 +94,7 @@ f.call("foo")
 "foo"
 ```
 
-*Lambdas.* Like procs, these are first class anonymous functions. But they check their airity and can override the return call. This means that Procs (and by extension, blocks which are merely special cases of Procs) expect to take over the return behavior of whatever is using them and Lambdas do not. _This is the closest to a Lisp first class function._
+*Lambdas.* are like procs, these are first class anonymous functions. But they check their airity and can override the return call. This means that Procs (and by extension, blocks which are merely special cases of Procs) expect to take over the return behavior of whatever is using them and Lambdas do not. _This is the closest to a Lisp first class function._
 
 So to illustrate the difference here:
 
@@ -127,5 +129,31 @@ module Renaisannce
        n <= 1 ? n :  fibonacci( n - 1 ) + fibonacci( n - 2 ) 
    end
 end
+
+import Renaisannce
+
+Renaisannce.by_phi 5
+ => 3.090169943749474
 ```
+
+
+### Python
+
+Python has a few closure-like approaches, too. The simplest is a straightforward function within a function.
+
+```python
+def foo(x):
+    m = 4
+    def bar(y):
+        return m * x
+    return bar(6)
+
+foo(6)
+24
+```
+
+Note you _can_ do this with Ruby: define functions within functions. They just can't refer to local variables defined in the outer scope of the function, so this fails as closures.
+
+*Labmdas* have their place in Python, too. These are the closest to pure functional Lisp closures.
+
 
