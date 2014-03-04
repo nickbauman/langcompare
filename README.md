@@ -152,7 +152,21 @@ foo(6)
 24
 ```
 
-Note you _can_ do this with Ruby: define functions within functions. They just can't refer to local variables defined in the outer scope of the function, so this fails as closures.
+Note you _can_ do this with Ruby: define functions within functions. They just can't refer to local variables defined in the outer scope of the function, so this fails as a closure:
+
+```ruby
+def foo(a)
+   x = 4
+   def bar(b)
+     b * x 
+   end
+   bar(a)
+end
+
+foo(6)
+NameError: undefined local variable or method `x' for main:Object
+```
+
 
 *Labmdas* have their place in Python, too. These are the closest to pure functional Lisp closures.
 
