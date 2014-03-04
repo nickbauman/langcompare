@@ -166,7 +166,7 @@ NameError: undefined local variable or method `x' for main:Object
 ```
 
 
-*Labmdas* have their place in Python, too. These are the closest to pure functional Lisp closures. They can be assigned. Passed. They can refer to other values in the outer scope. They can even be included as dependencies. In spite of all the options Ruby seems to offer, python is much more Functional than Ruby with much less mechanics of syntax.
+*Labmdas* have their place in Python, too. These are the closest to pure functional Lisp closures python offers. They can be assigned. Passed. They can refer to other values in the outer scope. They can even be included as dependencies. In spite of all the options Ruby seems to offer, python is much more Functional than Ruby with much less mechanics of syntax.
 
 ```python
 r = 17
@@ -195,4 +195,23 @@ f(3)
 0
 ```
 
+Lambdas can be imported as dependencies from other namespaces just like ordinary functions can be. They need not be directly attached to objects or modules.
 
+### Clojure
+
+Clojure is a Lisp-1 language. So closures are its bread and butter. Because of its Lisp-1 heritage, its homoiconicity implies that even a simple datastructure like a vector already behaves partly as a closure.
+
+```clojure
+(def v [1 2 3 4])
+
+(v 2)
+3
+```
+
+Clojure's anonymous function comes in two forms.
+
+```clojure
+(def g 2)
+
+(fn[x] x * g)
+```
