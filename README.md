@@ -166,6 +166,19 @@ NameError: undefined local variable or method `x' for main:Object
 ```
 
 
-*Labmdas* have their place in Python, too. These are the closest to pure functional Lisp closures.
+*Labmdas* have their place in Python, too. These are the closest to pure functional Lisp closures. They can be assigned. Passed. They can refer to other values in the outer scope. They can even be included as dependencies. In spite of all the options Ruby seems to offer, python is much more Functional than Ruby with much less mechanics of syntax.
 
+```python
+r = 17
+f = lambda x: x * 2 + r
+f(4)
+25
+
+def foo(a):
+  g = lambda m: m * 2 + f(2)
+  return g(a)
+
+foo(9)
+39
+```
 
