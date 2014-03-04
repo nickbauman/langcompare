@@ -183,3 +183,16 @@ foo(9)
 44
 ```
 
+Not all is well, however. In fact lambdas are so pure in Python that they cannot contain statements. Lisps do not need statements. They achieve what other languages use statements for with special forms or macros. Python, however, does not have special forms or macros. So if you need a conditional in your python lambda, you'll have to resort to python's expressions that return truthy or falsey.
+
+```python
+f = lambda x: 0 == x % 2 and x * 2 or 0
+
+f(2)
+4
+
+f(3)
+0
+```
+
+
