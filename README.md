@@ -214,4 +214,8 @@ Clojure's anonymous function comes in two forms.
 (def g 2)
 
 (fn[x] x * g)
+
+#(% * g)
 ```
+
+The first is the canonical form. The second is the _sugar_ form. Sugar is what Clojuristas refer to as syntactic adornments to the parser to make the language a little more consise via terseness and idom.
