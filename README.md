@@ -92,7 +92,7 @@ f.call("foo")
 "foo"
 ```
 
-Lambdas. Like procs, these are first class anonymous functions. But they check their airity and can override the return call. This means that Procs (and by extension, blocks which are merely special cases of Procs) expect to take over the return behavior of whatever is using them and Lambdas do not. _This is the closest to a Lisp first class function._
+*Lambdas.* Like procs, these are first class anonymous functions. But they check their airity and can override the return call. This means that Procs (and by extension, blocks which are merely special cases of Procs) expect to take over the return behavior of whatever is using them and Lambdas do not. _This is the closest to a Lisp first class function._
 
 So to illustrate the difference here:
 
@@ -109,7 +109,23 @@ puts test_return(lambda { return "this is a lambda"})
 done
 ```
 
-If you don't understand the implications of this (and there are no few of them), suffice it to say just don't put a return in any Proc (or block) and you will be fine. However, if you find you need one, use a Lambda.
+Long story short, don't put a return in any Proc (or block) and you will be fine. However, if you find you need one, use a Lambda.
 
 (This is a classic problem with so-called hybrid OO/Functional languages: they use _syntax_ to imbibe meaning to the code, where functional languages do not use this crutch, instead relying on recombinant _semantics_ to achieve more consistent, comprehensible approaches.)
+
+Lambdas are very close to first-class functions in Lisp. Except you cannot create a dependency on a Lambda because of Ruby's "everything is an object" mantra. The closest thing to achieving this is to use:
+
+*Modules.* A module is similar to an _abstract class_ in Java or a _Category_ in Objective C. You can take behavior (functions) and bolt them into a stateless "module" instance:
+
+```ruby
+module Renaisannce
+   def by_phi(x)
+       x / ((Math.sqrt(5)+1) / 2)
+   end
+   
+   def fib(n)
+       n <= 1 ? n :  fibonacci( n - 1 ) + fibonacci( n - 2 ) 
+   end
+end
+```
 
