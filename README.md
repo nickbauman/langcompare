@@ -60,7 +60,7 @@ new Example().greeting("Rachelle", "Joe", "John");
 
 Ruby has several different things that are closure-like. Each of them are not quite like a real Lisp closure.
 
-Blocks. These are like anonymous functions, except they're not quite first class. They can work for methods that are programmed to accept them, such as the each method which hangs off a collection.
+*Blocks.* These are like anonymous functions, except they're not quite first class. They can work for methods that are programmed to accept them, such as the each method which hangs off a collection.
 
 ```ruby
 [1, 2, 3, 4, 5].each { |i| puts i }
@@ -79,7 +79,7 @@ f = {|i| puts i}
 SyntaxError: (irb):4: syntax error, unexpected tPIPE
 ```
 
-Procs. First class anonymous functions. The irony is that blocks are just syntactic sugar to make Procs look more
+*Procs.* First class anonymous functions. The irony is that blocks are just syntactic sugar to make Procs look more
 "Rubyish". So behind every block you'll find a Proc that's not quite as flexible but uses a more concise syntax. So
 you could do this, for example:
 
