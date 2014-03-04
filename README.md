@@ -1,4 +1,4 @@
-# langcompare
+# Compare Ruby, Python, Clojure and Java
 
 Compare Ruby to Python, Clojure and Java. I'm writing this primarily to help me get a better understanding of Ruby based on some of the languages I already know.
 
