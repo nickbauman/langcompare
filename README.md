@@ -175,10 +175,11 @@ f(4)
 25
 
 def foo(a):
-  g = lambda m: m * 2 + f(2)
+  d = 5
+  g = lambda m: m * 2 + f(2) + 5
   return g(a)
 
 foo(9)
-39
+44
 ```
 
