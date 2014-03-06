@@ -6,7 +6,7 @@ I'm writing this primarily to help me get a better understanding of Ruby based o
 
 ### Ruby
 
-Splat arguments
+*Splat arguments* are ruby's way of doing varargs.
 
 ```ruby
 def greeting(*people)
@@ -18,7 +18,7 @@ greeting "Rachelle", "Joe", "John"
 
 ### Python
 
-Args (and kwargs)
+*Args* (and kwargs) are python's way of doing varargs
 
 ```python
 def greeting(*people):
@@ -30,7 +30,7 @@ greeting("Rachelle", "Joe", "John")
 
 ### Clojure 
 
-Ampersand args, which have the additional feature of being optional
+Ampersand args
 
 ```clojure
 (defn greeting [& people]
@@ -41,7 +41,7 @@ Ampersand args, which have the additional feature of being optional
 
 ### Java
 
-Varargs, also optional using an ellipses, which creates a zero-length array when not used 
+Varargs uses an ellipses, which creates a zero-length array when not used 
 
 ```java
 class Example {
@@ -56,13 +56,13 @@ new Example().greeting("Rachelle", "Joe", "John");
 
 ## How are closures done?
 
-Closures were born in Lisp. True closures are first class. They allow capturing outer scope within an inner scope. They can be anonymous, assigned to symbols, values or variables, passed to functions, and treated as dependencies.
+Closures were born in Lisp. True closures are first class. They allow capturing outer scope within an inner scope. They can be anonymous, assigned to symbols, variables or as values, passed to functions, and treated as dependencies.
 
 ### Ruby
 
 Ruby has several different things that are closure-like. Each of them are not quite like a real Lisp closure.
 
-*Blocks.* are like anonymous functions, except they're not quite first class. They can work for methods that are programmed to accept them, such as the each method which hangs off a collection.
+*Blocks* are the most commonly used. Similar to anonymous functions, except they're not quite first class. They can work for methods that are programmed to accept them, such as the each method which hangs off a collection.
 
 ```ruby
 [1, 2, 3, 4, 5].each { |i| puts i }
@@ -81,8 +81,8 @@ f = {|i| puts i}
 SyntaxError: (irb):4: syntax error, unexpected tPIPE
 ```
 
-*Procs.* are first class anonymous functions. The irony is that blocks are just syntactic sugar to make Procs look more
-"Rubyish". So behind every block you'll find a Proc that's not quite as flexible but uses a more concise syntax. So
+*Procs* are first class anonymous functions. In fact blocks are just syntactic sugar to make Procs look more
+"Rubyish". So behind every block you'll find a Proc. It's not quite as flexible but uses a more concise syntax. So
 you could do this, for example:
 
 ```ruby
@@ -92,9 +92,14 @@ f = Proc.new {|i| puts i}
 # notice the irregular call requirement here
 f.call("foo")
 "foo"
+# in later versions of Ruby you can use square brackets instead of call:
+f["foo"]
+"foo"
 ```
 
-*Lambdas.* are like procs, these are first class anonymous functions. But they check their airity and can override the return call. This means that Procs (and by extension, blocks which are merely special cases of Procs) expect to take over the return behavior of whatever is using them and Lambdas do not. _This is the closest to a Lisp first class function._
+*Lambdas* are also procs, these are first class anonymous functions. But they check their airity and can override the return call. This means that Procs (and by extension, blocks which are merely special cases of Procs) expect to take over the return behavior of whatever is using them and Lambdas do not. _This is the closest to a Lisp first class closure._ 
+
+But Lambdas are Procs, too: they merely set a flag on the Proc to enable the Lamda behavior.
 
 So to illustrate the difference here:
 
@@ -119,18 +124,19 @@ Lambdas are very close to first-class functions in Lisp. Except you cannot creat
 
 ```ruby
 module Renaisannce
-   def by_phi(x)
-       x / ((Math.sqrt(5)+1) / 2)
+   Renaisannce.lambda_by_phi = lambda { x / ((Math.sqrt(5)+1) / 2) }
+   f = lambda do |n|
+        n <= 1 ? n :  f( n - 1 ) + f( n - 2 )
    end
-   
-   def fib(n)
-       n <= 1 ? n :  fibonacci( n - 1 ) + fibonacci( n - 2 ) 
-   end
+   Renaisannce.lambda_fib = f
 end
 
-import Renaisannce
-
-Renaisannce.by_phi 5
+x = Renaisannce.by_phi 5
+x.call
+ => 3.090169943749474
+ 
+y = Renaisannce.lambda_fib 5
+y.call
  => 3.090169943749474
 ```
 
@@ -166,7 +172,7 @@ NameError: undefined local variable or method `x' for main:Object
 ```
 
 
-*Labmdas* have their place in Python, too. These are the closest to pure functional Lisp closures python offers. They can be assigned. Passed. They can refer to other values in the outer scope. They can even be included as dependencies. In spite of all the options Ruby seems to offer, python is much more Functional than Ruby with much less mechanics of syntax.
+*Lambdas* have their place in Python, too. These are the closest to pure functional Lisp closures python offers. They can be assigned. Passed. They can refer to other values in the outer scope. They can even be included as dependencies. In spite of all the options Ruby seems to offer, python is much more Functional than Ruby with much less mechanics of syntax.
 
 ```python
 r = 17
@@ -199,7 +205,7 @@ Lambdas can be imported as dependencies from other namespaces just like ordinary
 
 ### Clojure
 
-Clojure is a Lisp-1 language. So closures are its bread and butter. Because of its Lisp-1 heritage, its homoiconicity implies that even a simple datastructure like a vector already behaves partly as a closure.
+Clojure is a Lisp-1 language. Closures are, erm, Clojure's bread and butter. Because of its Lisp-1 heritage, its homoiconicity implies that even a simple datastructure like a vector already behaves as function.
 
 ```clojure
 (def v [1 2 3 4])
@@ -211,11 +217,9 @@ Clojure is a Lisp-1 language. So closures are its bread and butter. Because of i
 Clojure's anonymous function comes in two forms.
 
 ```clojure
-(def g 2)
+(fn[x] x * 2)
 
-(fn[x] x * g)
-
-#(% * g)
+#(% * 2)
 ```
 
-The first is the canonical form. The second is the _sugar_ form. Sugar is what Clojuristas refer to as syntactic adornments to the parser to make the language a little more consise via terseness and idom.
+The first is the canonical form. The second is the _sugar_ form. Sugar is what Clojuristas refer to as syntactic adornments to the parser to make the language a little more consise (some would say merely terse) idom.
