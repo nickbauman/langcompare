@@ -14,6 +14,10 @@ def greeting(*people)
 end
 
 greeting "Rachelle", "Joe", "John"
+Hello Rachelle!
+Hello Joe!
+Hello John!
+ => ["Rachelle", "Joe", "John"] 
 ```
 
 ### Python
@@ -26,6 +30,9 @@ def greeting(*people):
         print "Hello {0}".format(person)
 
 greeting("Rachelle", "Joe", "John")
+Hello Rachelle
+Hello Joe
+Hello John
 ```
 
 ### Clojure 
@@ -37,6 +44,10 @@ Ampersand args
     (doseq [name people] (println (str "Hello " name))))
 
 (greeting "Rachelle" "Joe" "John")
+Hello Rachelle
+Hello Joe
+Hello John
+nil
 ```
 
 ### Java
