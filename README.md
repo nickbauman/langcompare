@@ -95,9 +95,7 @@ f = {|i| puts i}
 SyntaxError: (irb):4: syntax error, unexpected tPIPE
 ```
 
-*Procs* are first class anonymous functions. In fact blocks are just syntactic sugar to make Procs look more
-"Rubyish". So behind every block you'll find a Proc. It's not quite as flexible but uses a more concise syntax. So
-you could do this, for example:
+*Procs* are first-class anonymous functions. (In fact blocks are just syntactic sugar around Procs) So you could do this, for example:
 
 ```ruby
 f = Proc.new do |i| puts i end
