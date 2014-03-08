@@ -63,6 +63,9 @@ class Example {
 }
 
 new Example().greeting("Rachelle", "Joe", "John");
+Hello Rachelle
+Hello Joe
+Hello John
 ```
 
 ## How are closures done?
